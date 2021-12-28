@@ -1,0 +1,16 @@
+song:
+  armeria:
+    httpPort: 8080
+    httpsPort: 8443
+
+spring:
+  data-source:
+    url: jdbc:mysql://localhost:3306/songdb?useUnicode=true&characterEncoding=UTF-8&useLocalSessionState=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+

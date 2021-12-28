@@ -1,0 +1,58 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.6.RELEASE'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version "0.8.17"
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id "io.spring.dependency-management" version "1.0.3.RELEASE"
+}
+
+group 'com.song.project'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.linecorp.armeria:armeria-bom:1.9.2'
+    }
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'com.linecorp.armeria:armeria'
+    implementation 'com.linecorp.armeria:armeria-grpc'
+    implementation 'com.linecorp.armeria:armeria-spring-boot2-starter'
+    implementation 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'mysql:mysql-connector-java'
+}
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.7.1"
+    }
+
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.34.1" }
+    }
+
+    generatedFilesBaseDir = "$projectDir/src/protobuf"
+
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc{}
+            }
+        }
+    }
+}
